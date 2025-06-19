@@ -1,0 +1,69 @@
+# Healthcare Domain Configuration
+# Configuration for generating synthetic healthcare data with patient details and conditions
+
+domain_name: "Healthcare"
+description: "Synthetic data generator for patient care plans with medical conditions and treatment recommendations"
+
+# Core entities in the healthcare domain
+entities:
+  - name: "Patient"
+    description: "Patient profiles with demographic and medical information"
+    attributes:
+      - name: "patient_id"
+        type: "id"
+        description: "Unique identifier for the patient"
+      - name: "first_name"
+        type: "first_name"
+        description: "Patient's first name"
+      - name: "last_name"
+        type: "last_name"
+        description: "Patient's last name"
+      - name: "age"
+        type: "integer"
+        min: 18
+        max: 95
+        distribution: "normal"
+        mean: 55
+        std_dev: 15
+        description: "Patient's age"
+      - name: "gender"
+        type: "categorical"
+        categories: ["Male", "Female", "Non-binary"]
+        weights: [0.48, 0.48, 0.04]
+        description: "Patient's gender"
+      - name: "conditions"
+        type: "categorical"
+        categories: [
+          "Hypertension, Diabetes", 
+          "Asthma, Anxiety",
+          "Depression, Chronic Pain",
+          "Hypertension, Osteoarthritis, Hyperlipidemia",
+          "Type 2 Diabetes, Obesity, Sleep Apnea",
+          "Heart Failure, Chronic Kidney Disease",
+          "COPD, Coronary Artery Disease"
+        ]
+        description: "Patient's medical conditions"
+      - name: "cultural_considerations"
+        type: "categorical"
+        categories: [
+          "None",
+          "Religious dietary restrictions",
+          "Language barrier - requires interpreter",
+          "Traditional medicine preference",
+          "Strong family involvement in care decisions",
+          "Cultural stigma around mental health treatment"
+        ]
+        description: "Cultural considerations for patient care"
+
+# Relationships between entities (optional for this simple case)
+relationships: []
+
+# Narrative templates (optional)
+narrative_templates: []
+
+# Fine-tuning task definition with proper formats
+fine_tuning_task:
+  system_prompt: "You are a medical assistant that creates comprehensive care plans for patients. Your responses should be concise, professional, and address all medical conditions and cultural considerations."
+  user_template: "Create comprehensive care plan for {{age}}yo {{gender}} patient with: Medical Conditions: {{conditions}}. Cultural Considerations: {{cultural_considerations}}."
+  primary_entity: "Patient"
+  task_description: "Generate comprehensive care plans for patients with various medical conditions"
